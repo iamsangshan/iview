@@ -1,5 +1,7 @@
 #include <bits/stdc++.h>
 
+/* go to line 75 for algo */
+
 using namespace std;
 
 class SinglyLinkedListNode {
