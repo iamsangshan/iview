@@ -1,7 +1,19 @@
 
 /* yet to submit in leetcode */
 
-
+/*  Algorithm 
+ *
+ *  Create a stack and keep inserting char by char*
+ *
+ *  i.e.
+ *  insert if its an open bracket
+ *  compare with the top element if its a closing bracket
+ *  the top element should be the corresponding open bracket
+ *  else return false
+ *
+ *  traverse string till end
+ *  if stack is empty then string is balanced.
+ */
 
 struct mystack {
     int top;
