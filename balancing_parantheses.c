@@ -6,13 +6,13 @@
  *  Create a stack and keep inserting char by char*
  *
  *  i.e.
- *  insert if its an open bracket
- *  compare with the top element if its a closing bracket
- *  the top element should be the corresponding open bracket
- *  else return false
+ *  1 insert if its an open bracket
+ *  2 compare with the top element if its a closing bracket
+ *  3 the top element should be the corresponding open bracket
+ *  4 else return false
  *
- *  traverse string till end
- *  if stack is empty then string is balanced.
+ *  5 traverse string till end
+ *  6 if stack is empty then string is balanced.
  */
 
 struct mystack {
