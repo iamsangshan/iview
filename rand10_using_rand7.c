@@ -43,6 +43,8 @@
  * so to make it even ...
  *
  * define out-of-range values (val > 11)
+ *
+ * idea is to equalluy distribute the probability 
  */
 
 #define MAX_RANDOM 10
