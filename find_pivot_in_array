@@ -1,4 +1,7 @@
 
+
+/* YET TO SUBMIT */
+
 /* find element in array such that left subarray is small and right subarray is large */
 
 a[N] = {6 5 10 12 15 11 }
