@@ -1,0 +1,11 @@
+void level_order(root) {
+
+	if (!root) return;
+	
+	enqueue(q, root->left, root->right);
+	
+	level_order(root->left);
+	
+	level_order(root->right);
+	
+}
