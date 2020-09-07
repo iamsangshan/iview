@@ -1,0 +1,28 @@
+
+/* find element in array such that left subarray is small and right subarray is large */
+
+a[N] = {6 5 10 12 15 11 }
+
+
+i = 1;
+
+leftmax = findmax(0, i-1); (6)
+	
+rightmin = findmin(i+1, end-1);  (11)
+
+for (i = 1; i < N-2; i++) {
+	if (leftmax <= a[i] <= rightmin)
+		return a[i]
+	else
+		if (leftmax < a[i])
+			leftmax = a[i];
+		if (rightmin > a[i])
+			rightmin = a[i];
+}
+
+return 0;
+
+
+
+
+}
