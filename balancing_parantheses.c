@@ -1,7 +1,11 @@
 
 /* yet to submit in leetcode */
 
-/*  Algorithm 
+/*  
+ *  Sangeetha Shanmugam
+ *  Aug 2020
+ *
+ *  Algorithm 
  *
  *  Create a stack and keep inserting char by char*
  *
