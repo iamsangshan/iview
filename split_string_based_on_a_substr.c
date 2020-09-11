@@ -1,3 +1,15 @@
+/*****************************************
+
+Given a Main big string, split this string
+based on a small substr given as input. 
+Print all the parts.
+
+Sangeetha Shanmugam
+August 2020
+
+******************************************/
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
