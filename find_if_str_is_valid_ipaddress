@@ -14,66 +14,49 @@ Sep 2020
 #include <string.h>
 #include <stdlib.h>
 
-/* return true if valid ipv4 addr */
-int valid_ipv4(char *str) {
 
-    int octet = 0, count = 0;
-    char *octet_str = NULL;
-    int status = 0;
+#define IPV4 1
+#define IPV6 1
+#define INVALID_ADDR -1
+#define MAX_OCTETS 4
 
-    while (str && count < 4) {
-
-        /* get each octet and check if falls under a valid octet */
-        /* dont go beyond 4 octets */
-
-        octet_str = strtok(str, ".");
-
-        if (octet_str) {
-            count++;
-            octet = atoi(octet_str);
-
-            if (0 <= octet && octet <= 255)
-                status = 1; /* TRUE so far */
-            else {
-                status = 0;
-                break;
-            }
-        } else {
-            break;
-        }
-    }
-
-    if (str)
-        status = 0; /* we have more to the input even after 4 octets */
-    
-    return status;
-}
+char *ipv4_delim = ".";
+char *ipv6_delim = ":";
 
 
-/* ffab:5:6:0 */
-/* return true if valid ipv6 addr */
-int valid_ipv6(char *str) 
+/* return true if valid ipv4 or ipv6 addr */
+int valid_ipv4_or_ipv6(char *str) 
 {
 
     int octet = 0, count = 0;
-    char *octet_str = NULL;
+    char *octet_str = NULL, *delim = NULL;
     int status = 0;
-
-    while (str && count < 4) {
+    char *tmp = str; /* copy input */
+    int ip_type = 0;
+    
+    /* first find which delim to use */
+     octet_str = strtok(tmp, ":");
+     if (octet_str) 
+         delim = ipv6_delim;  /* Ipv6 */
+     else
+        delim = ipv4_delim;   /* ipv4 */
+     
+    tmp= *str; octet_str = NULL;  /* reinit for actual logic */
+    while (tmp && count < MAX_OCTETS) {
 
         /* get each octet and check if falls under a valid octet */
         /* dont go beyond 4 octets */
-
-        octet_str = strtok(str, ":");
-
+        octet_str = strtok(tmp, delim);
         if (octet_str) {
             count++;
             octet = atoi(octet_str);
 
-            if (0 <= octet && octet <= 0xffff)
-                status = 1; /* TRUE so far */
+            if (0 <= octet && octet <= 0xffff && delim == ipv6_delim)
+                status = IPV6; /* TRUE so far */
+            else if (0 <= octet && octet <= 255 && delim == ipv4_delim)
+                status = IPV4;
             else {
-                status = 0;
+                status = INVALID_ADDR;
                 break;
             }
         } else {
@@ -81,8 +64,8 @@ int valid_ipv6(char *str)
         }
     }
 
-    if (str)
-        status = 0; /* we have more to the input even after 4 octets */
+    if (tmp)
+        status = INVALID_ADDR; /* we have more to the input even after 4 octets */
     
     return status;
 }
@@ -109,9 +92,12 @@ int main() {
     }
 
     for (i = 0; i < num_of_inputs; i++) {
-        if (valid_ipv4(input[i]))
+    
+        status = valid_ipv4_or_ipv6;
+        
+        if (status == IPV4)
             printf("IPv4\n");
-        else if (valid_ipv6(input[i]))
+        else if (status == IPV6)
             printf("IPv6\n");
         else
             printf("None\n");
