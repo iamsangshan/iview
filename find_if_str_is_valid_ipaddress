@@ -1,0 +1,121 @@
+
+/***********************
+
+Check if a given string 
+is a valid IPv4/Ipv6 address
+
+Sangeetha Shanmugam
+Sep 2020
+
+************************/
+
+
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+/* return true if valid ipv4 addr */
+int valid_ipv4(char *str) {
+
+    int octet = 0, count = 0;
+    char *octet_str = NULL;
+    int status = 0;
+
+    while (str && count < 4) {
+
+        /* get each octet and check if falls under a valid octet */
+        /* dont go beyond 4 octets */
+
+        octet_str = strtok(str, ".");
+
+        if (octet_str) {
+            count++;
+            octet = atoi(octet_str);
+
+            if (0 <= octet && octet <= 255)
+                status = 1; /* TRUE so far */
+            else {
+                status = 0;
+                break;
+            }
+        } else {
+            break;
+        }
+    }
+
+    if (str)
+        status = 0; /* we have more to the input even after 4 octets */
+    
+    return status;
+}
+
+
+/* ffab:5:6:0 */
+/* return true if valid ipv6 addr */
+int valid_ipv6(char *str) 
+{
+
+    int octet = 0, count = 0;
+    char *octet_str = NULL;
+    int status = 0;
+
+    while (str && count < 4) {
+
+        /* get each octet and check if falls under a valid octet */
+        /* dont go beyond 4 octets */
+
+        octet_str = strtok(str, ":");
+
+        if (octet_str) {
+            count++;
+            octet = atoi(octet_str);
+
+            if (0 <= octet && octet <= 0xffff)
+                status = 1; /* TRUE so far */
+            else {
+                status = 0;
+                break;
+            }
+        } else {
+            break;
+        }
+    }
+
+    if (str)
+        status = 0; /* we have more to the input even after 4 octets */
+    
+    return status;
+}
+
+
+/* not submitted due to some issues in getting inputs from user in Hackerrank */
+
+int main() {
+
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */
+
+    int num_of_inputs = 0, i;
+    char **input;
+    char *octet_str;
+      
+    /* lets get the input */
+    scanf("Enter the number of lines %d", &num_of_inputs);
+    
+    input = (char **) malloc(sizeof(char *) * num_of_inputs);
+
+    while (i < num_of_inputs) {
+        scanf("%s", input[i]);
+        i++;
+    }
+
+    for (i = 0; i < num_of_inputs; i++) {
+        if (valid_ipv4(input[i]))
+            printf("IPv4\n");
+        else if (valid_ipv6(input[i]))
+            printf("IPv6\n");
+        else
+            printf("None\n");
+    }
+
+    return 0;
+}
